@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, Image, Touchable, TouchableOpacity } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import RestaurantLike from "./RestaurantLike";
 
 export const localRestaurants = [
 	{
@@ -24,6 +25,7 @@ export const localRestaurants = [
 ];
 
 export default function Restaurantitems({ navigation, ...props }) {
+	// const [like, setLike] = useState(false);
 	return (
 		<>
 			{props.restaurantData.map((restaurant, index) => (
@@ -45,7 +47,7 @@ export default function Restaurantitems({ navigation, ...props }) {
 					<View
 						style={{ marginTop: 10, padding: 15, backgroundColor: "white" }}
 					>
-						<RestaurantImage image={restaurant.image_url} />
+						<RestaurantLike image={restaurant.image_url} />
 						{/*<RestaurantImage/> */}
 						<RestaurantInfo name={restaurant.name} rating={restaurant.rating} />
 					</View>
@@ -55,21 +57,22 @@ export default function Restaurantitems({ navigation, ...props }) {
 	);
 }
 
-const RestaurantImage = (props) => (
-	<>
-		<Image
-			source={{
-				uri: props.image,
-			}}
-			style={{ width: "100%", height: 180 }}
-		/>
-		<TouchableOpacity
-			style={{ position: "absolute", right: 20, marginTop: 20 }}
-		>
-			<MaterialCommunityIcons name="heart-outline" size={25} color="#fff" />
-		</TouchableOpacity>
-	</>
-);
+// const RestaurantImage = (props) => (
+// 	<>
+// 		<Image
+// 			source={{
+// 				uri: props.image,
+// 			}}
+// 			style={{ width: "100%", height: 180 }}
+// 		/>
+// 		<TouchableOpacity
+// 			style={{ position: "absolute", right: 20, marginTop: 20 }}
+// 			// onPress={}
+// 		>
+// 			<MaterialCommunityIcons name="heart-outline" size={25} color="#fff" />
+// 		</TouchableOpacity>
+// 	</>
+// );
 
 const RestaurantInfo = (props) => (
 	<View
