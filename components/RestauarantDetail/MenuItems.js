@@ -3,86 +3,6 @@ import { View, Text, Image, ScrollView, StyleSheet } from "react-native";
 import { Divider } from "react-native-elements/dist/divider/Divider";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { useDispatch, useSelector } from "react-redux";
-const foods = [
-	{
-		title: "Tandoori Chicken",
-		description: "Amazing Indian dish with tenderlion  chicken off the sizzles",
-		price: "$19.20",
-		image: "https://thumbs.dreamstime.com/b/tandoori-chicken-18117606.jpg",
-	},
-	{
-		title: "Chicken 65",
-		description: "Amazing Indian dish with tenderloi8n chicken off the sizzles",
-		price: "$19.20",
-		image: "https://thumbs.dreamstime.com/b/tandoori-chicken-18117606.jpg",
-	},
-	{
-		title: "Chicken 652",
-		description: "Amazing Indian dish with tenderloi8n chicken off the sizzles",
-		price: "$19.20",
-		image: "https://thumbs.dreamstime.com/b/tandoori-chicken-18117606.jpg",
-	},
-	{
-		title: "Chicken 653",
-		description: "Amazing Indian dish with tenderloi8n chicken off the sizzles",
-		price: "$19.20",
-		image: "https://thumbs.dreamstime.com/b/tandoori-chicken-18117606.jpg",
-	},
-	{
-		title: "Chicken 654",
-		description: "Amazing Indian dish with tenderloi8n chicken off the sizzles",
-		price: "$19.20",
-		image: "https://thumbs.dreamstime.com/b/tandoori-chicken-18117606.jpg",
-	},
-	{
-		title: "Chicken 65-5",
-		description: "Amazing Indian dish with tenderloi8n chicken off the sizzles",
-		price: "$19.20",
-		image: "https://thumbs.dreamstime.com/b/tandoori-chicken-18117606.jpg",
-	},
-	{
-		title: "Chicken 65-6",
-		description: "Amazing Indian dish with tenderloi8n chicken off the sizzles",
-		price: "$19.20",
-		image: "https://thumbs.dreamstime.com/b/tandoori-chicken-18117606.jpg",
-	},
-	{
-		title: "Chicken 65-7",
-		description: "Amazing Indian dish with tenderloi8n chicken off the sizzles",
-		price: "$19.20",
-		image: "https://thumbs.dreamstime.com/b/tandoori-chicken-18117606.jpg",
-	},
-	{
-		title: "Chicken 65-8",
-		description: "Amazing Indian dish with tenderloi8n chicken off the sizzles",
-		price: "$19.20",
-		image: "https://thumbs.dreamstime.com/b/tandoori-chicken-18117606.jpg",
-	},
-	{
-		title: "Chicken 65-8",
-		description: "Amazing Indian dish with tenderloi8n chicken off the sizzles",
-		price: "$19.20",
-		image: "https://thumbs.dreamstime.com/b/tandoori-chicken-18117606.jpg",
-	},
-	{
-		title: "Chicken 65-8",
-		description: "Amazing Indian dish with tenderloi8n chicken off the sizzles",
-		price: "$19.20",
-		image: "https://thumbs.dreamstime.com/b/tandoori-chicken-18117606.jpg",
-	},
-	{
-		title: "Chicken 65-8",
-		description: "Amazing Indian dish with tenderloi8n chicken off the sizzles",
-		price: "$19.20",
-		image: "https://thumbs.dreamstime.com/b/tandoori-chicken-18117606.jpg",
-	},
-	{
-		title: "Chicken 65-12",
-		description: "Amazing Indian dish with tenderloi8n chicken off the sizzles",
-		price: "$19.20",
-		image: "https://thumbs.dreamstime.com/b/tandoori-chicken-18117606.jpg",
-	},
-];
 
 const styles = StyleSheet.create({
 	menuItemStyle: {
@@ -97,7 +17,12 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default function MenuItems({ restaurantName }) {
+export default function MenuItems({
+	restaurantName,
+	foods,
+	hideCheckbox,
+	marginLeft,
+}) {
 	const dispatch = useDispatch();
 	const selectItem = (item, checkboxValue) =>
 		dispatch({
@@ -119,17 +44,21 @@ export default function MenuItems({ restaurantName }) {
 			{foods.map((food, index) => (
 				<View key={index}>
 					<View style={styles.menuItemStyle}>
-						<BouncyCheckbox
-							iconStyle={{
-								borderColor: "lightgray",
-								borderRadius: 0,
-							}}
-							fillColor="green"
-							onPress={(checkboxValue) => selectItem(food, checkboxValue)}
-							isChecked={isFoodInCart(food, cartItems)}
-						/>
+						{hideCheckbox ? (
+							<></>
+						) : (
+							<BouncyCheckbox
+								iconStyle={{
+									borderColor: "lightgray",
+									borderRadius: 0,
+								}}
+								fillColor="green"
+								onPress={(checkboxValue) => selectItem(food, checkboxValue)}
+								isChecked={isFoodInCart(food, cartItems)}
+							/>
+						)}
 						<FoodInfo food={food} />
-						<FoodImage food={food} />
+						<FoodImage food={food} marginLeft={marginLeft ? marginLeft : 0} />
 					</View>
 					<Divider
 						width={0.5}
@@ -150,11 +79,16 @@ const FoodInfo = (props) => (
 	</View>
 );
 
-const FoodImage = (props) => (
+const FoodImage = ({ marginLeft, ...props }) => (
 	<View>
 		<Image
 			source={{ uri: props.food.image }}
-			style={{ width: 100, height: 100, borderRadius: 8 }}
+			style={{
+				width: 100,
+				height: 100,
+				borderRadius: 8,
+				marginLeft: marginLeft,
+			}}
 		/>
 	</View>
 );
