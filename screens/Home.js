@@ -11,7 +11,7 @@ import Restaurantitems, {
 import SearchBar from "../components/home/SearchBar";
 
 const YELP_API_Key =
-	"xDT0Z7vSJag7GsKBnjhf0IMUMZjHIve_agj2q39EjUMaSnhVtpdwJYC32hRIDtAy4lVZbFzWFz_1XBr7fok7jhtYY-jREQDZgMGA4HnV1VesnQctNWpLErihszVIYXYx";
+	"#Type Your Yelp Key Here";
 
 export default function Home({ navigation }) {
 	const [restaurantData, setrestaurantData] = useState(localRestaurants);
